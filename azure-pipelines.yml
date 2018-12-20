@@ -5,7 +5,6 @@
 
 trigger:
 - master
-
 jobs:
 - job: "Test"
   strategy:
@@ -13,40 +12,51 @@ jobs:
       LinuxPython27:
         python.version: "2.7"
         imageName: "ubuntu-16.04"
+        publishCoverage: "false"
       LinuxPython35:
         python.version: "3.5"
         imageName: "ubuntu-16.04"
+        publishCoverage: "false"
       LinuxPython36:
         python.version: "3.6"
         imageName: "ubuntu-16.04"
+        publishCoverage: "false"
       LinuxPython37:
         python.version: "3.7"
         imageName: "ubuntu-16.04"
+        publishCoverage: "true"
       MacPython27:
         python.version: "2.7"
         imageName: "macos-10.13"
+        publishCoverage: "false"
       MacPython35:
         python.version: "3.5"
         imageName: "macos-10.13"
+        publishCoverage: "false"
       MacPython36:
         python.version: "3.6"
         imageName: "macos-10.13"
+        publishCoverage: "false"
       MacPython37:
         python.version: "3.7"
         imageName: "macos-10.13"
+        publishCoverage: "false"
       WindowsPython27:
         python.version: "2.7"
         imageName: "vs2017-win2016"
+        publishCoverage: "false"
       WindowsPython35:
         python.version: "3.5"
         imageName: "vs2017-win2016"
+        publishCoverage: "false"
       WindowsPython36:
-
         python.version: "3.6"
         imageName: "vs2017-win2016"
+        publishCoverage: "false"
       WindowsPython37:
         python.version: "3.7"
         imageName: "vs2017-win2016"
+        publishCoverage: "false"
     maxParallel: 10
   pool:
     vmImage: $(imageName)
@@ -70,6 +80,7 @@ jobs:
     condition: succeededOrFailed()
 
   - task: PublishCodeCoverageResults@1
+    condition: eq(variables['publishCoverage'], 'true')
     inputs:
       codeCoverageTool: Cobertura
       summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage.xml"
