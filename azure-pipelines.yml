@@ -60,20 +60,20 @@ jobs:
     displayName: "Install dependencies"
 
   - script: |
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=mymodule --cov-report=xml --cov-report=html
+      pytest tests --doctest-modules --junitxml=test-results.xml --cov=mymodule --cov-report=xml --cov-report=html
     displayName: "pytest"
 
   - task: PublishTestResults@2
     inputs:
-      testResultsFiles: "**/test-results.xml"
+      testResultsFiles: "test-results.xml"
       testRunTitle: $(Agent.JobName)
     condition: succeededOrFailed()
 
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: Cobertura
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-      reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
+      summaryFileLocation: "coverage.xml"
+      reportDirectory: "htmlcov"
 
 - job: "Publish"
   dependsOn: "Test"
