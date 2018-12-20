@@ -41,6 +41,7 @@ jobs:
         python.version: "3.5"
         imageName: "vs2017-win2016"
       WindowsPython36:
+
         python.version: "3.6"
         imageName: "vs2017-win2016"
       WindowsPython37:
@@ -59,7 +60,7 @@ jobs:
     displayName: "Install dependencies"
 
   - script: |
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=mymodule --cov-report=xml --cov-report=html
     displayName: "pytest"
 
   - task: PublishTestResults@2
