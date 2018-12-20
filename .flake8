@@ -1,0 +1,4 @@
+[flake8]
+# black, the super-great auto-formatter has decided that 88 is a good number.
+# I'm inclined to agree, or not to dissagree.
+max-line-length = 88
