@@ -25,6 +25,7 @@ setup(name='mymodule',
       license="Apache-2.0",
       test_suite = 'test',
       tests_require = [
-          "mock>=2"
+          "mock>=2",
+          "pytest>=4,<5"
       ]
 )
