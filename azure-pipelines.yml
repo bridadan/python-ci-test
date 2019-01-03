@@ -70,7 +70,7 @@ jobs:
     displayName: "Install dependencies"
 
   - script: |
-      pytest tests --doctest-modules --junitxml=test-results.xml --cov=mymodule --cov-report=xml --cov-report=html
+      pytest tests --doctest-modules --junitxml=test-results.xml --cov=mymodule
     displayName: "pytest"
 
   - task: PublishTestResults@2
@@ -79,13 +79,10 @@ jobs:
       testRunTitle: $(Agent.JobName)
     condition: succeededOrFailed()
 
-  - task: PublishCodeCoverageResults@1
+  - script: |
+      python -m coveralls
     condition: eq(variables['publishCoverage'], 'true')
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage.xml"
-      reportDirectory: "$(System.DefaultWorkingDirectory)/htmlcov"
-      additionalCodeCoverageFiles: "$(System.DefaultWorkingDirectory)/htmlcov/**"
+    displayName: "Publish code coverage to Coveralls"
 
 - job: "Publish"
   dependsOn: "Test"
