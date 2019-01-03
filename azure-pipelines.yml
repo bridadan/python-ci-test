@@ -80,6 +80,7 @@ jobs:
     condition: succeededOrFailed()
 
   - script: |
+      pip install coveralls
       python -m coveralls
     condition: eq(variables['publishCoverage'], 'true')
     displayName: "Publish code coverage to Coveralls"
